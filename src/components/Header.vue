@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { icon } from '@fortawesome/fontawesome-svg-core'
+</script>
 <template>
   <header>
     <section class="container">
@@ -19,8 +21,9 @@
         </section>
 
         <div class="connection">
-          <h2>icone</h2>
-          <button class="toConnect">Se connecter</button>
+          <button class="toConnect">
+            <font-awesome-icon :icon="['far', 'user']" />Se connecter
+          </button>
         </div>
       </section>
 
@@ -51,6 +54,8 @@
 <style scoped>
 header {
   box-shadow: 1px 1px 1px 1px rgb(187, 187, 187);
+
+  /* border: solid 2px red; */
 }
 
 .leboncoin-title {
@@ -80,5 +85,10 @@ h1 > img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-end;
+  gap: 15px;
+}
+.connection svg {
+  font-size: 18px;
 }
 </style>
