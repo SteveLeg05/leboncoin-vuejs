@@ -7,14 +7,20 @@
 
         <section class="mini-container">
           <div>
-            <button>Déposer une annonce</button>
+            <button class="deposit-button">
+              <font-awesome-icon :icon="['fas', 'plus-square']" />Déposer une annonce
+            </button>
           </div>
-          <div><button type="search" placeholder="">Rechercher sur leboncoin</button></div>
+          <div>
+            <button class="search-button" type="search" placeholder="">
+              Rechercher sur leboncoin<font-awesome-icon :icon="['fas', 'search']" />
+            </button>
+          </div>
         </section>
 
         <div class="connection">
           <h2>icone</h2>
-          <button>Se connecter</button>
+          <button class="toConnect">Se connecter</button>
         </div>
       </section>
 

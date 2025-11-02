@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   avatar: String,
   username: String,
@@ -6,6 +8,17 @@ const props = defineProps({
   title: String,
   price: Number,
   date: String,
+})
+
+const newDate = computed(() => {
+  if (!props.date) {
+    return ''
+  }
+  return new Date(props.date).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  })
 })
 </script>
 <template>
@@ -18,23 +31,27 @@ const props = defineProps({
 
       <img :src="picture" alt="image de l'article" />
       <h3>{{ title }}</h3>
-      <p>{{ price }}</p>
-      <p>{{ date }}</p>
+      <p>{{ price }} €</p>
+      <span>{{ newDate }}</span>
     </section>
   </main>
 </template>
 <style script>
 .offerCard {
-  border: solid 2px green;
+  /* border: solid 2px green; */
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   width: 250px;
-  height: 300px;
+  height: 500px;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .offerCard > div {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
 }
 
@@ -44,8 +61,20 @@ const props = defineProps({
   border-radius: 50%;
 }
 
-.offerCard > div p {
-  font-size: 18px;
-  font-weight: bold;
+.offerCard div > p {
+  font-size: 16px;
+}
+
+.offerCard > span {
+  font-size: 14px;
+  font-weight: normal;
+  color: gray;
+}
+
+.offerCard > img {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  border-radius: 20px;
 }
 </style>

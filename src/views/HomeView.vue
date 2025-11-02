@@ -25,22 +25,26 @@ onMounted(async () => {
       <img src="../assets/img/onde-corail.svg" alt="onde corail" />
       <div>
         <h3>C'est le moment de vendre</h3>
-        <button>Déposer vos annonces</button>
+        <button class="deposit-button">
+          <font-awesome-icon :icon="['fas', 'plus-square']" />Déposer une annonce
+        </button>
       </div>
 
       <img src="../assets/img/feuille-bleue.svg" alt="feuille bleue" />
     </div>
 
-    <Card
-      v-for="offer in offersArray"
-      :key="offer.id"
-      :avatar="offer.attributes.owner?.data?.attributes?.avatar?.data?.attributes?.url"
-      :username="offer.attributes.owner.data.attributes.username"
-      :picture="offer.attributes.pictures?.data[0]?.attributes?.url"
-      :title="offer.attributes.title"
-      :price="offer.attributes.price"
-      :date="offer.attributes.createdAt"
-    />
+    <section class="cards">
+      <Card
+        v-for="offer in offersArray"
+        :key="offer.id"
+        :avatar="offer.attributes.owner?.data?.attributes?.avatar?.data?.attributes?.url"
+        :username="offer.attributes.owner.data.attributes.username"
+        :picture="offer.attributes.pictures?.data[0]?.attributes?.url"
+        :title="offer.attributes.title"
+        :price="offer.attributes.price"
+        :date="offer.attributes.createdAt"
+      />
+    </section>
   </main>
 </template>
 
@@ -68,11 +72,22 @@ onMounted(async () => {
 
 h2 {
   font-size: 30px;
+  font-weight: bold;
   text-align: center;
   margin: 30px 0;
 }
 
 h3 {
   font-size: 25px;
+  font-weight: bold;
+}
+
+.cards {
+  /* border: solid 2px blue; */
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 30px 0;
 }
 </style>
