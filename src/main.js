@@ -3,10 +3,10 @@ import './assets/main.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faPlusSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faPlusSquare, faSearch, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 
-library.add(faUser, faPlusSquare, faSearch)
+library.add(faUser, faPlusSquare, faSearch, faMapMarkerAlt)
 
 import { createApp } from 'vue'
 import App from './App.vue'

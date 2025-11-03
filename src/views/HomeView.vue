@@ -34,16 +34,15 @@ onMounted(async () => {
     </div>
 
     <section class="cards">
-      <Card
-        v-for="offer in offersArray"
-        :key="offer.id"
-        :avatar="offer.attributes.owner?.data?.attributes?.avatar?.data?.attributes?.url"
-        :username="offer.attributes.owner.data.attributes.username"
-        :picture="offer.attributes.pictures?.data[0]?.attributes?.url"
-        :title="offer.attributes.title"
-        :price="offer.attributes.price"
-        :date="offer.attributes.createdAt"
-      />
+      <RouterLink :to="'/offer/' + offer.id" v-for="offer in offersArray" :key="offer.id">
+        <Card
+          :avatar="offer.attributes.owner?.data?.attributes?.avatar?.data?.attributes?.url"
+          :username="offer.attributes.owner.data.attributes.username"
+          :picture="offer.attributes.pictures?.data[0]?.attributes?.url"
+          :title="offer.attributes.title"
+          :price="offer.attributes.price"
+          :date="offer.attributes.createdAt"
+      /></RouterLink>
     </section>
   </main>
 </template>
