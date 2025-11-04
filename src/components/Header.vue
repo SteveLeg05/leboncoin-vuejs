@@ -1,11 +1,11 @@
-<script setup>
-import { icon } from '@fortawesome/fontawesome-svg-core'
-</script>
+<script setup></script>
 <template>
   <header>
     <section class="container">
       <section class="leboncoin-title">
-        <h1><img src="../assets/img/logo.svg" alt="logo leboncoin" /></h1>
+        <RouterLink to="/"
+          ><h1><img src="../assets/img/logo.svg" alt="logo leboncoin" /></h1
+        ></RouterLink>
 
         <section class="mini-container">
           <div>
@@ -53,6 +53,13 @@ import { icon } from '@fortawesome/fontawesome-svg-core'
 </template>
 <style scoped>
 header {
+  box-shadow: 1px 1px 1px 1px rgb(187, 187, 187);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white; /* important pour qu’il ne soit pas transparent */
+  z-index: 1000; /* au-dessus du reste */
   box-shadow: 1px 1px 1px 1px rgb(187, 187, 187);
 
   /* border: solid 2px red; */

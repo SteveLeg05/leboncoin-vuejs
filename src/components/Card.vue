@@ -20,6 +20,10 @@ const newDate = computed(() => {
     day: 'numeric',
   })
 })
+
+const localPrice = computed(() => {
+  return props.price.toLocaleString('fr-FR')
+})
 </script>
 <template>
   <main>
@@ -31,7 +35,7 @@ const newDate = computed(() => {
 
       <img :src="picture" alt="image de l'article" />
       <h3>{{ title }}</h3>
-      <p>{{ price }} €</p>
+      <p>{{ localPrice }} €</p>
       <span>{{ newDate }}</span>
     </section>
   </main>
@@ -48,7 +52,6 @@ const newDate = computed(() => {
   font-weight: bold;
   font-size: 18px;
 }
-
 .offerCard > div {
   display: flex;
   align-items: flex-end;

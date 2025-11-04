@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import Card from '@/components/Card.vue'
 
 const offersArray = ref([])
@@ -48,6 +48,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+main.container {
+  padding-top: 120px;
+}
+
 .bandeau {
   /* border: solid 2px red; */
   border-radius: 20px;
@@ -70,6 +74,7 @@ onMounted(async () => {
 }
 
 h2 {
+  margin-top: 500px;
   font-size: 30px;
   font-weight: bold;
   text-align: center;
@@ -88,5 +93,11 @@ h3 {
   flex-wrap: wrap;
   gap: 10px;
   margin: 30px 0;
+}
+
+.cards a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 </style>
