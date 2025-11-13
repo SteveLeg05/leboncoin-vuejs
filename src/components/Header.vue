@@ -20,11 +20,13 @@
           </div>
         </section>
 
-        <div class="connection">
-          <button class="toConnect">
-            <font-awesome-icon :icon="['far', 'user']" />Se connecter
-          </button>
-        </div>
+        <RouterLink :to="{ name: 'login' }">
+          <div class="connection">
+            <button class="toConnect">
+              <font-awesome-icon :icon="['far', 'user']" />Se connecter
+            </button>
+          </div></RouterLink
+        >
       </section>
 
       <section class="articleFamily">
@@ -97,5 +99,9 @@ h1 > img {
 }
 .connection svg {
   font-size: 18px;
+}
+
+a {
+  text-decoration: none;
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios'
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref } from 'vue'
 import Card from '@/components/Card.vue'
 
 const offersArray = ref([])
