@@ -10,6 +10,8 @@ import {
   faCheckDouble,
   faChevronLeft,
   faChevronRight,
+  faEye,
+  faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons'
 import { faUser, faClock } from '@fortawesome/free-regular-svg-icons'
 
@@ -22,6 +24,8 @@ library.add(
   faClock,
   faChevronLeft,
   faChevronRight,
+  faEye,
+  faEyeSlash,
 )
 
 import { createApp } from 'vue'

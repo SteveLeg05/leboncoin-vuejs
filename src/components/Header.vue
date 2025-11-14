@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import { inject } from 'vue'
+
+const auth = inject('auth')
+</script>
+
 <template>
   <header>
     <section class="container">
@@ -20,13 +25,14 @@
           </div>
         </section>
 
-        <RouterLink :to="{ name: 'login' }">
-          <div class="connection">
-            <button class="toConnect">
+        <div class="connection">
+          <RouterLink v-if="!auth.user" :to="{ name: 'login' }"
+            ><button class="toConnect">
               <font-awesome-icon :icon="['far', 'user']" />Se connecter
             </button>
-          </div></RouterLink
-        >
+          </RouterLink>
+          <p v-else>Bonjour {{ auth.user?.username }}</p>
+        </div>
       </section>
 
       <section class="articleFamily">

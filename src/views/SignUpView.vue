@@ -1,16 +1,61 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, inject, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 
-const name = ref('')
+const username = ref('')
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)
+const clearError = () => {
+  errorMessage.value = ''
+}
+const auth = inject('auth')
+const router = useRouter()
 
-const handleSubmit = () => {
-  console.log('submit ==>', {
-    name: name.value,
-    email: email.value,
-    password: password.value,
-  })
+const errorMessage = ref('')
+const isLoading = ref(false)
+
+const handleSubmit = async () => {
+  if (!username.value || !email.value || !password.value) {
+    errorMessage.value = 'Veuillez remplir tous les champs'
+    return
+  }
+
+  isLoading.value = true
+  errorMessage.value = ''
+
+  try {
+    const response = await axios.post(
+      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/auth/local/register',
+      {
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      },
+    )
+
+    auth.token = response.data.jwt
+    auth.user = response.data.user
+
+    await nextTick()
+    router.push({ name: 'home' })
+
+    console.log('Signup success:', response)
+  } catch (error) {
+    // Gestion plus sûre des erreurs
+    if (error.response && error.response.data?.error?.message) {
+      errorMessage.value = error.response.data.error.message
+    } else if (error.request) {
+      errorMessage.value = 'Impossible de contacter le serveur, réessayez plus tard'
+    } else {
+      errorMessage.value = 'Une erreur inattendue est survenue'
+    }
+
+    console.log('Signup error:', error)
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 <template>
@@ -20,14 +65,43 @@ const handleSubmit = () => {
         <h2>Bonjour !</h2>
         <p>Inscrivez-vous pour découvrir toutes nos fonctionnalités.</p>
 
-        <form @submit.prevent="handleSubmit" action="submit">
-          <label for="name">Nom *</label>
-          <input v-model="name" type="text" name="name" id="name" placeholder="" />
+        <form @submit.prevent="handleSubmit">
+          <label for="username">Nom *</label>
+          <input
+            v-model="username"
+            type="text"
+            name="username"
+            id="username"
+            @input="clearError"
+            placeholder=""
+          />
+
           <label for="email">Email *</label>
-          <input v-model="email" type="email" name="email" id="email" placeholder="" />
+          <input
+            v-model="email"
+            type="email"
+            name="email"
+            id="email"
+            @input="clearError"
+            placeholder=""
+          />
+
           <label for="password">Mot de passe *</label>
-          <input v-model="password" type="password" name="password" id="password" placeholder="" />
-          <button>S'inscrire -></button>
+          <div class="password-wrapper">
+            <input
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              name="password"
+              id="password"
+              @input="clearError"
+              placeholder=""
+            />
+            <button @click="showPassword = !showPassword" class="eye-icon">
+              <font-awesome-icon :icon="showPassword ? ['fas', 'eye'] : ['fas', 'eye-slash']" />
+            </button>
+          </div>
+          <button>{{ isLoading ? 'Inscription en cours...' : "S'inscrire ->" }}</button>
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
         </form>
         <div class="connect">
           <p>
@@ -101,12 +175,41 @@ button {
   border: none;
   border-radius: 15px;
   background-color: orangered;
-  margin: 15px 0px;
+  margin: 10px 0px;
   font-size: 16px;
   font-weight: bold;
   color: white;
 }
 a {
   color: black;
+}
+
+.error-message {
+  /* border: solid 2px red; */
+  text-align: center;
+  font-style: 16px;
+  color: orangered;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 2.5rem; /* espace pour l’icône */
+  box-sizing: border-box;
+}
+
+.password-wrapper .eye-icon {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
 }
 </style>

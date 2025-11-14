@@ -34,10 +34,11 @@ onMounted(async () => {
     </div>
 
     <section class="cards">
+      <p v-if="!offersArray.length">Chargement des annonces...</p>
       <RouterLink :to="'/offer/' + offer.id" v-for="offer in offersArray" :key="offer.id">
         <Card
-          :avatar="offer.attributes.owner?.data?.attributes?.avatar?.data?.attributes?.url"
-          :username="offer.attributes.owner.data.attributes.username"
+          :avatar="offer.attributes?.owner?.data?.attributes?.avatar?.data?.attributes?.url"
+          :username="offer.attributes?.owner?.data?.attributes?.username"
           :picture="offer.attributes.pictures?.data[0]?.attributes?.url"
           :title="offer.attributes.title"
           :price="offer.attributes.price"
