@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject, nextTick } from 'vue'
+import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -33,7 +33,10 @@ const handleLogin = async () => {
       { identifier: email.value, password: password.value },
     )
     auth.token = response.data.jwt
-    auth.user = response.data.user
+    auth.user = { username: response.data.user.username }
+
+    $cookies.set('token', auth.token, '7d')
+    $cookies.set('user', auth.user.username, '7d')
 
     // await nextTick()
     router.push('/')

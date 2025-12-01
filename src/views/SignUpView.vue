@@ -36,7 +36,10 @@ const handleSubmit = async () => {
     )
 
     auth.token = response.data.jwt
-    auth.user = response.data.user
+    auth.user = { username: response.data.user.username }
+
+    $cookies.set('token', auth.token, '7d')
+    $cookies.set('user', auth.user.username, '7d')
 
     await nextTick()
     router.push({ name: 'home' })

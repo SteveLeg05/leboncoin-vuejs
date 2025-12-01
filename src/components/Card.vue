@@ -46,7 +46,7 @@ const localPrice = computed(() => {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 250px;
+  width: 240px;
   height: 500px;
   margin: 10px 0;
   font-weight: bold;

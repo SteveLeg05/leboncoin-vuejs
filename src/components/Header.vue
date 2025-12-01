@@ -1,7 +1,30 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const auth = inject('auth')
+const logout = inject('logout')
+const search = ref('')
+const route = useRoute()
+const router = useRouter()
+
+const handleSubmit = () => {
+  console.log(search.value, route.query)
+
+  const queries = { ...route.query }
+
+  if (search.value) {
+    queries.title = search.value
+  } else {
+    delete queries.title
+  }
+
+  // pagination
+
+  queries.page = 1
+
+  router.push({ name: 'home', query: queries })
+}
 </script>
 
 <template>
@@ -18,11 +41,12 @@ const auth = inject('auth')
               <font-awesome-icon :icon="['fas', 'plus-square']" />Déposer une annonce
             </button>
           </div>
-          <div>
-            <button class="search-button" type="search" placeholder="">
-              Rechercher sur leboncoin<font-awesome-icon :icon="['fas', 'search']" />
+          <form @submit.prevent="handleSubmit">
+            <input type="text" placeholder="Rechercher sur leboncoin" v-model="search" />
+            <button>
+              <font-awesome-icon :icon="['fas', 'search']" />
             </button>
-          </div>
+          </form>
         </section>
 
         <div class="connection">
@@ -31,7 +55,17 @@ const auth = inject('auth')
               <font-awesome-icon :icon="['far', 'user']" />Se connecter
             </button>
           </RouterLink>
-          <p v-else>Bonjour {{ auth.user?.username }}</p>
+
+          <div v-else>
+            <div>
+              <font-awesome-icon :icon="['far', 'user']" />
+              <p>Bonjour {{ auth.user?.username }}</p>
+            </div>
+
+            <button @click="logout" class="logout-button">
+              <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" />
+            </button>
+          </div>
         </div>
       </section>
 
@@ -109,5 +143,56 @@ h1 > img {
 
 a {
   text-decoration: none;
+}
+
+.logout-button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  background-color: white;
+}
+
+.connection > div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.connection > div div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-container > form {
+  /* background-color: white; */
+  /* border: solid 2px green; */
+  border-radius: 10px;
+  /* padding: 5px; */
+  display: flex;
+}
+
+.mini-container > form input {
+  height: 45px;
+  width: 100%;
+  max-width: 250px;
+  /* border: solid 2px red; */
+  font-size: 16px;
+  border: none;
+}
+
+.mini-container > form button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+.mini-container > form svg {
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  background-color: #ff5b0e;
+  border: none;
+  border-radius: 10px;
 }
 </style>
